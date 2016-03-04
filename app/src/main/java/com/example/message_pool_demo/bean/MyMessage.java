@@ -25,10 +25,12 @@ import com.example.message_pool_demo.Constant;
  * 这是 Android SDK中 {@link android.os.Message android.os.Message} 类的一个简化版, 主要是为了研究
  * 该 Message类中消息池的设计机制, 所以将与该研究无关的方法全部删除, 而将某些方法的实现细节进行了适当的
  * 修改, 包括但不限于以下几点:
- * 1. 增加了字段 String msgName, 表示 MyMessage对象的名称.
- * 2. 将构造方法更改为携带有参数 msgName的形式并在其内部增加了日志输出语句.
- * 3. 将 toString()更改为返回 MyMessage对象中 msgName字段的值.
- * 4. 将 obtain()方法更改为 obtain(String)并在其内部增加了日志输出语句.
+ * 1. 增加了字段 String {@link #msgName msgName}, 表示 MyMessage对象的名称.
+ * 2. 将构造方法更改为携带有参数 msgName的形式并在其内部增加了日志输出语句, 请见
+ *    {@link #MyMessage(String) MyMessage(String)}.
+ * 3. 将 {@link #toString() toString()} 方法更改为返回 MyMessage对象中 msgName字段的值.
+ * 4. 将 obtain()方法更改为带有一个String参数的 {@link #obtain(String) obtain(String)} 并在其内部
+ *    增加了日志输出语句.
  */
 public final class MyMessage {
     /**
@@ -119,8 +121,6 @@ public final class MyMessage {
      * <p/>
      * 将 toString()方法返回该消息对象的名称 msgName, 这样能更加直观地看出 sPool 和 sPool.next这
      * 两个引用当前各指向哪个 MyMessage对象.
-     *
-     * @return
      */
     @Override
     public String toString() {

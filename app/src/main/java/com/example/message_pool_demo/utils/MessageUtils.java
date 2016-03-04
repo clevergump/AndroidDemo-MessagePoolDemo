@@ -17,7 +17,7 @@ public class MessageUtils {
         Log.i(Constant.TAG, "recycle " + msg.getMessageName());
         msg.recycle();
         int msgPoolSize = getMessagePoolSize();
-        MyMessage sPool = getMessagePool();
+        MyMessage sPool = getMessageFromPool();
         if (msgPoolSize > 0) {
             MyMessage sPoolNext = getNextMessage(sPool);
             Log.i(Constant.TAG, "      Current msgPoolSize = " + msgPoolSize + ", sPool = " + sPool + ", sPool.next = " + sPoolNext);
@@ -28,13 +28,13 @@ public class MessageUtils {
 
     public static MyMessage obtainMessage(String msgName) {
         MyMessage msg = MyMessage.obtain(msgName);
-        MyMessage sPool = getMessagePool();
+        MyMessage sPool = getMessageFromPool();
         int msgPoolSize = getMessagePoolSize();
         Log.i(Constant.TAG, "      Current msgPoolSize = "+ msgPoolSize +", sPool = " + sPool);
         return msg;
     }
 
-    public static MyMessage getMessagePool() {
+    public static MyMessage getMessageFromPool() {
         try {
             Field sPoolField = MyMessage.class.getDeclaredField("sPool");
             sPoolField.setAccessible(true);
