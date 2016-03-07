@@ -88,6 +88,8 @@ public final class MyMessage {
                 sPool = m.next;
                 m.next = null;
                 sPoolSize--;
+                // 一旦消息池中有消息对象被重新拿出去使用(也就是被重复使用), 那么此处就会打印一句日志,
+                // 并将被重复使用的那个消息对象的名称也同时打印出来.
                 Log.i(Constant.TAG, "REUSE message " + m.msgName);
                 return m;
             }
@@ -109,7 +111,8 @@ public final class MyMessage {
                 sPool = this;
                 sPoolSize++;
             } else {
-                Log.e(Constant.TAG, "      Message pool is full. Recycle fails.");
+                // 如果消息池已满, 此处会以 warning 的形式显示在日志中, 用以进行区分显示.
+                Log.w(Constant.TAG, "      Message pool is full. Recycle fails.");
             }
         }
     }
@@ -142,6 +145,7 @@ public final class MyMessage {
 
     /**
      * Constructor (but the preferred way to get a Message is to call {@link #obtain(String msgName) MyMessage.obtain(msgName)}).
+     * 构造方法, 其中参数表示为该消息对象所设置的名称
      */
     public MyMessage(String msgName) {
         this.msgName = msgName;
@@ -150,6 +154,7 @@ public final class MyMessage {
 
     /**
      * Obtain the name of this MyMessage object
+     * 获取消息对象的名称.
      *
      * @return the name of this MyMessage object
      */

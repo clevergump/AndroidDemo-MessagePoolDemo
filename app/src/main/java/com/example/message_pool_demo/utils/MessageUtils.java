@@ -13,6 +13,10 @@ import java.lang.reflect.Field;
  */
 public class MessageUtils {
 
+    /**
+     * 将给定的消息对象回收到消息池中.
+     * @param msg
+     */
     public static void recycleMessage(MyMessage msg) {
         Log.i(Constant.TAG, "recycle " + msg.getMessageName());
         msg.recycle();
@@ -26,6 +30,11 @@ public class MessageUtils {
         }
     }
 
+    /**
+     * 获取一个消息对象. 优先使用消息池中已有的消息对象, 如果消息池为空, 才会去创建消息对象.
+     * @param msgName
+     * @return
+     */
     public static MyMessage obtainMessage(String msgName) {
         MyMessage msg = MyMessage.obtain(msgName);
         MyMessage sPool = getMessageFromPool();
@@ -34,6 +43,10 @@ public class MessageUtils {
         return msg;
     }
 
+    /**
+     * 获取 Message类中私有的 sPool字段的值.
+     * @return
+     */
     public static MyMessage getMessageFromPool() {
         try {
             Field sPoolField = MyMessage.class.getDeclaredField("sPool");
@@ -48,6 +61,10 @@ public class MessageUtils {
         return null;
     }
 
+    /**
+     * 获取消息池中当前存放的消息引用的数量
+     * @return
+     */
     public static int getMessagePoolSize() {
         try {
             Field sPoolField = MyMessage.class.getDeclaredField("sPoolSize");
@@ -62,6 +79,11 @@ public class MessageUtils {
         return 0;
     }
 
+    /**
+     * 获取给定消息对象所指向的下一个消息对象, 也就是 msg.next 的值.
+     * @param msg
+     * @return
+     */
     public static MyMessage getNextMessage(MyMessage msg) {
         MyMessage next = null;
         try {
