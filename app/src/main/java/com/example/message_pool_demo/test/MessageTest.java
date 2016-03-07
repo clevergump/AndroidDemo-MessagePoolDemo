@@ -13,7 +13,7 @@ import java.util.List;
 public class MessageTest {
 
     /**
-     * 用于测试消息池对象消息对象的回收与重复利用.
+     * 用于测试消息池对消息对象的回收与重复利用.
      */
     public static void testMessagePoolRecycleAndReuse() {
         MyMessage msgA = MessageUtils.obtainMessage("msgA");
