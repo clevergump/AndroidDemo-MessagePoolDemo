@@ -1,1 +1,1 @@
-include ':MessagePoolDemo', ':MemoryLeakInMessageSystemDemo'
+include ':MessagePoolDemo', ':MemoryLeakInMessageSystemDemo', ':HandlerDispatchMessageDemo'
